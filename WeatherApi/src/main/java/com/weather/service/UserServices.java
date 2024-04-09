@@ -13,6 +13,7 @@ import com.weather.config.JwtTokenGeneratorFilter;
 import com.weather.dto.AuthResponse;
 import com.weather.dto.Login;
 import com.weather.entity.Users;
+import com.weather.exceptions.NotFoundException;
 import com.weather.repo.UserRepo;
 
 @Service
@@ -28,9 +29,11 @@ public class UserServices {
 	private UserRepo userRepo;
 	
 	public Users AddUser(Users user) {
-		
-		String encryptedPassword=passwordEncoder.encode(user.getPassword());
-		user.setPassword(encryptedPassword);
+//		Users oldUser=userRepo.findByEmail(user.getEmail()).get();
+//		if(oldUser!=null)
+//			throw new NotFoundException(user.getEmail()+ " already exits");
+		System.out.println(user.getPassword());
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		Users newUsere=userRepo.save(user);
 		return newUsere;
 		

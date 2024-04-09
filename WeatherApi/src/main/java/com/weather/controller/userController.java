@@ -12,6 +12,8 @@ import com.weather.dto.Login;
 import com.weather.entity.Users;
 import com.weather.service.UserServices;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 @RestController
 @RequestMapping("/user")
 public class userController {
@@ -19,11 +21,13 @@ public class userController {
 	private UserServices userServices;
 	
 	@PostMapping("/addUser")
-	public ResponseEntity<Users> addUser(Users user){
+	public ResponseEntity<Users> addUser(@RequestBody Users user){
+		System.out.println(user.getEmail());
+		System.out.println(user.getPassword());
 		return new ResponseEntity<>(userServices.AddUser(user),HttpStatus.CREATED);
 	}
 	@PostMapping("/login")
-	public ResponseEntity<AuthResponse> loginUser(Login login){
+	public ResponseEntity<AuthResponse> loginUser(@RequestBody Login login){
 		return new ResponseEntity<>(userServices.loginUser(login),HttpStatus.OK);
 	}
 }
